@@ -31,10 +31,16 @@ const AddInvoice = () => {
                 "quantity": quantity,
                 "value": value
             };
-            await axios.post(process.env.REACT_APP_BASE_URL + `/invoice`,
+            const res = await axios.post(process.env.REACT_APP_BASE_URL + `/invoice`,
                 requestBody);
-            alert(`insert success!`)
-            await history.push('/invoice')
+            if (res.data.error){
+                alert(res.data.error);
+                await history.push('/invoice/add')
+            }
+            else{
+                alert(`success!`);
+                await history.push('/invoice')
+            }
         } catch (e) {
             alert("Failed to add")
         }

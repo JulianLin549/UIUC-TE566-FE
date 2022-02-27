@@ -16,6 +16,10 @@ import Payroll from "./components/Payroll/Payroll";
 import AddPayroll from "./components/Payroll/AddPayroll";
 import PurchaseOrder from "./components/PurchaseOrder/PurchaseOrder";
 import AddPurchaseOrder from "./components/PurchaseOrder/AddPurchaseOrder";
+import NewPurchaseOrder from "./components/PurchaseOrder/NewPurchaseOrder";
+import Settlement from "./components/Settlement/Settlement";
+import BalanceSheet from "./components/BalanceSheet/BalanceSheet";
+import IncomeStatement from "./components/IncomeStatement/IncomeStatement";
 
 function App() {
     return (
@@ -40,8 +44,17 @@ function App() {
                     <Route path="/payroll/add" component={AddPayroll}/>
                     <Route path="/payroll" component={Payroll}/>
 
+                    <Route path="/purchase-order/add/new-purchase" component={NewPurchaseOrder}/>
                     <Route path="/purchase-order/add" component={AddPurchaseOrder}/>
                     <Route path="/purchase-order" component={PurchaseOrder}/>
+
+                    <Route path="/inventory" component={AddPurchaseOrder}/>
+
+                    <Route path="/settlement" component={Settlement}/>
+
+                    <Route path="/balance-sheet" component={BalanceSheet}/>
+                    <Route path="/income-statement" component={IncomeStatement}/>
+
                 </Switch>
 
             </Box>

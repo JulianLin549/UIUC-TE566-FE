@@ -17,14 +17,11 @@ const useStyles = makeStyles(() => ({
         flexGrow: 1,
     },
     routerLink: {
-        fontSize: "1.25rem",
+        fontSize: "0.5rem",
         color: "white",
         "&:hover": {
             color: "white"
         }
-    },
-    caption: {
-        fontSize: "1px"
     }
 }));
 export default function NavBar() {
@@ -50,18 +47,54 @@ export default function NavBar() {
             <Toolbar className={classes.navbar}>
                 <Box m={2}>
                     <Typography variant="h6" component="div">
-                        Budget Planner
+                       BJ47pupu Coop.
                     </Typography>
                 </Box>
                 <Button color="inherit"
                      component={RouterLink} className={classes.routerLink}
-                     to={'/user-management'}>
-                    User Management
+                     to={'/customer'}>
+                    customer
                 </Button>
-
-                <div className={classes.grow}/>
-
-                <Button color="inherit" component={RouterLink} className={classes.routerLink} to={'/login'}>Login</Button>
+                <Button color="inherit"
+                        component={RouterLink} className={classes.routerLink}
+                        to={'/employee'}>
+                    employee
+                </Button>
+                <Button color="inherit"
+                        component={RouterLink} className={classes.routerLink}
+                        to={'/vendor'}>
+                    vendor
+                </Button>
+                <Button color="inherit"
+                        component={RouterLink} className={classes.routerLink}
+                        to={'/payroll'}>
+                    payroll
+                </Button>
+                <Button color="inherit"
+                        component={RouterLink} className={classes.routerLink}
+                        to={'/invoice'}>
+                    invoice
+                </Button>
+                <Button color="inherit"
+                         component={RouterLink} className={classes.routerLink}
+                         to={'/purchase-order'}>
+                    Purchase Order
+                </Button>
+                <Button color="inherit"
+                        component={RouterLink} className={classes.routerLink}
+                        to={'/settlement'}>
+                    Settlement
+                </Button>
+                <Button color="inherit"
+                         component={RouterLink} className={classes.routerLink}
+                         to={'/income-statement'}>
+                    Income Statement
+                </Button>
+                <Button color="inherit"
+                        component={RouterLink} className={classes.routerLink}
+                        to={'/balance-sheet'}>
+                    Balance Sheet
+                </Button>
 
 
             </Toolbar>

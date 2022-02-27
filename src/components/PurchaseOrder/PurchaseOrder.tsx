@@ -55,7 +55,7 @@ const PurchaseOrder = () => {
                         <TableHead>
                             <TableRow>
                                 <TableCell>id</TableCell>
-                                <TableCell align="right">Part Id</TableCell>
+                                <TableCell align="right">Item Id</TableCell>
                                 <TableCell align="right">Quantity</TableCell>
                                 <TableCell align="right">Unit Price</TableCell>
                                 <TableCell align="right">Value</TableCell>
@@ -70,7 +70,7 @@ const PurchaseOrder = () => {
                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                 >
                                     <TableCell component="th" scope="row">{obj.po_id}</TableCell>
-                                    <TableCell align="right">{obj.part_id}</TableCell>
+                                    <TableCell align="right">{obj.item_id}</TableCell>
                                     <TableCell align="right">{obj.quantity}</TableCell>
                                     <TableCell align="right">{obj.unit_price}</TableCell>
                                     <TableCell align="right">{obj.value}</TableCell>

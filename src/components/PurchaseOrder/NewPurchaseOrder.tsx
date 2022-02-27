@@ -1,21 +1,26 @@
+
 import React, {useState} from 'react';
 import axios from "axios";
 import {Button, Typography} from "@mui/material";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import {useHistory} from "react-router-dom";
-const AddPurchaseOrder = () => {
+const NewPurchaseOrder = () => {
     const history = useHistory();
 
-    const [partId, setPartId] = useState('');
+    const [partName, setPartName] = useState('');
+    const [vendorId, setVendorId] = useState('');
     const [quantity, setQuantity] = useState('');
     const [unitPrice, setUnitPrice] = useState('');
     let value = parseInt(quantity) * parseFloat(unitPrice);
     value = (!isNaN(value)) ? value : 0;
 
 
-    const handlePartIdChange = (event: any) => {
-        setPartId(event.target.value);
+    const handlePartNameChange = (event: any) => {
+        setPartName(event.target.value);
+    };
+    const handleVendorIdChange = (event: any) => {
+        setVendorId(event.target.value);
     };
     const handleQuantityChange = (event: any) => {
         setQuantity(event.target.value);
@@ -24,27 +29,22 @@ const AddPurchaseOrder = () => {
         setUnitPrice(event.target.value);
     };
     const handleSubmit = async () => {
-        if (!partId || !quantity || !unitPrice){
+        if (!partName || !quantity || !unitPrice || !vendorId){
             alert("input field cannot be empty");
             return
         }
         try {
             const requestBody = {
-                "partId": partId,
+                "partName": partName,
+                "vendorId": vendorId,
                 "quantity": quantity,
                 "unitPrice": unitPrice,
                 "value": value
             };
-            const res = await axios.post(process.env.REACT_APP_BASE_URL + `/purchase-order`,
+            await axios.post(process.env.REACT_APP_BASE_URL + `/purchase-order/new`,
                 requestBody);
-            if (res.data.error){
-                alert(res.data.error);
-                await history.push('/purchase-order/add/new-purchase')
-            }
-            else{
-                alert(`success!`);
-                await history.push('/purchase-order')
-            }
+            alert(`success!`)
+            await history.push('/purchase-order')
         } catch (e) {
             alert("Failed to add")
         }
@@ -55,9 +55,6 @@ const AddPurchaseOrder = () => {
             <Typography variant="h5" gutterBottom component="div">
                 Add Purchase Order
             </Typography>
-            <Button variant="outlined" onClick={()=>history.push('/purchase-order/add/new-purchase')}>
-                New Purchase
-            </Button>
             <Box
                 component="form"
                 sx={{
@@ -67,8 +64,12 @@ const AddPurchaseOrder = () => {
                 autoComplete="off"
             >
                 <div>
-                    <TextField id="standard-basic" label="Part Id" variant="standard" style = {{width: 400}}
-                               onChange={handlePartIdChange}/>
+                    <TextField id="standard-basic" label="Part Name" variant="standard" style = {{width: 400}}
+                               onChange={handlePartNameChange}/>
+                </div>
+                <div>
+                    <TextField id="standard-basic" label="Vendor Id" variant="standard" style = {{width: 400}}
+                               onChange={handleVendorIdChange}/>
                 </div>
                 <div>
                     <TextField id="standard-basic" label="Quantity" variant="standard" style = {{width: 400}}
@@ -96,4 +97,4 @@ const AddPurchaseOrder = () => {
     );
 };
 
-export default AddPurchaseOrder;
+export default NewPurchaseOrder;
