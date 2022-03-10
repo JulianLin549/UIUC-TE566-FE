@@ -5,19 +5,20 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import {useHistory} from "react-router-dom";
 
-type Employee = {
+type Vendor = {
     address: string,
     created_at: string,
-    employee_id: number,
-    name: string,
-    salary: string
+    company_name: string,
+    vendor_id: number
 }
-const AddPayroll = () => {
+const AddPart = () => {
     const history = useHistory();
 
-    const [employee, setEmployee] = React.useState<Employee | null>();
+    const [vendor, setVendor] = React.useState<Vendor | null>();
+    const [unitPrice, setUnitPrice] = useState('');
+    const [partName, setPartName] = useState('');
 
-    const [employees, setEmployees] = useState<Array<Employee>>([]);
+    const [vendorList, setVendorList] = useState<Array<Vendor>>([]);
 
     useEffect(() => {
         async function fetch() {
@@ -27,31 +28,37 @@ const AddPayroll = () => {
     }, []);
     const handleGet = async () => {
         try {
-            const response = await axios.get(process.env.REACT_APP_BASE_URL + `/employee`);
-            setEmployees(response.data);
+            const response = await axios.get(process.env.REACT_APP_BASE_URL + `/vendor`);
+            setVendorList(response.data);
             console.log(response.data)
         } catch (e){
             alert('get data failed')
         }
     };
 
-
+    const handleUnitPriceChange = (event: any) => {
+        setUnitPrice(event.target.value);
+    };
+    const handlePartNameChange = (event: any) => {
+        setPartName(event.target.value);
+    };
     const handleSubmit = async () => {
-        console.log(employee);
-        if (!employee){
+        console.log(vendor);
+        if (!vendor || !unitPrice || !partName){
             alert("input field cannot be empty");
             return
         }
 
         try {
             const requestBody = {
-                "employeeId": employee.employee_id,
-                "amount": employee.salary,
+                "vendorId": vendor.vendor_id,
+                "partName": partName,
+                "unitPrice": unitPrice
             };
-            await axios.post(process.env.REACT_APP_BASE_URL + `/payroll`,
+            await axios.post(process.env.REACT_APP_BASE_URL + `/part`,
                 requestBody);
             alert(`insert success!`)
-            await history.push('/payroll')
+            await history.push('/part')
         } catch (e) {
             alert("Failed to add")
         }
@@ -60,12 +67,12 @@ const AddPayroll = () => {
 
         <Box m={2}>
             <Typography variant="h5" gutterBottom component="div">
-                Add Payroll
+                Add New Part
             </Typography>
             <Box
                 component="form"
                 sx={{
-                    '& .MuiTextField-root': { m: 1, width: '25ch' },
+                    '& .MuiTextField-root': { m: 1, width: '40ch' },
                 }}
                 noValidate
                 autoComplete="off"
@@ -73,34 +80,40 @@ const AddPayroll = () => {
                 <div>
                     <Autocomplete
                         id="country-select-demo"
-                        value={employee}
-                        onChange={(event: any, employee: Employee | null) => {
-                            setEmployee(employee);
+                        value={vendor}
+                        onChange={(event: any, employee: Vendor | null) => {
+                            setVendor(employee);
                         }}
-                        options={employees}
+                        options={vendorList}
                         autoHighlight
-                        getOptionLabel={(option) => option.name}
+                        getOptionLabel={(option) => option.company_name}
                         renderOption={(props, option) => (
                             <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
-                                {option.name} ({option.salary})
+                                {option.company_name}
                             </Box>
                         )}
                         renderInput={(params) => (
                             <TextField
                                 {...params}
                                 variant="standard"
-                                label="Choose a employee"
+                                label="Choose a vendor"
                             />
                         )}
                     />
                 </div>
-                <Box m={2}>
-                    {employee && <p>Payment ${employee?.salary} to {employee.name}</p>}
-                </Box>
+                <div>
+                    <TextField id="standard-basic" label="Part Name" variant="standard" style = {{width: 400}}
+                               onChange={handlePartNameChange}/>
+                </div>
+                <div>
+                    <TextField id="standard-basic" label="Unit Price" variant="standard" style = {{width: 400}}
+                               onChange={handleUnitPriceChange}/>
+                </div>
+
 
                 <Box m={2}>
                     <Button variant="outlined" onClick={handleSubmit}>
-                        Pay
+                        Submit
                     </Button>
                 </Box>
             </Box>
@@ -112,4 +125,4 @@ const AddPayroll = () => {
     );
 };
 
-export default AddPayroll;
+export default AddPart;

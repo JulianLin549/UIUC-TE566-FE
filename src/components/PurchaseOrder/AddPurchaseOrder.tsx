@@ -1,38 +1,62 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from "axios";
-import {Button, Typography} from "@mui/material";
+import {Autocomplete, Button, Typography} from "@mui/material";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import {useHistory} from "react-router-dom";
+type Vendor = {
+    address: string,
+    company_name: string,
+    created_at: string,
+    part_id: number,
+    part_name: string,
+    unit_price: string,
+    vendor_id: number
+}
 const AddPurchaseOrder = () => {
     const history = useHistory();
 
-    const [partId, setPartId] = useState('');
     const [quantity, setQuantity] = useState('');
-    const [unitPrice, setUnitPrice] = useState('');
-    let value = parseInt(quantity) * parseFloat(unitPrice);
+    const [vendorList, setVendorList] = useState<Array<Vendor>>([]);
+    const [vendor, setVendor] = useState<Vendor | null>();
+
+    let value = vendor ? parseInt(quantity) * parseFloat(vendor.unit_price) : 0;
     value = (!isNaN(value)) ? value : 0;
 
-
-    const handlePartIdChange = (event: any) => {
-        setPartId(event.target.value);
+    useEffect(() => {
+        async function fetch() {
+            await handleGet()
+        }
+        fetch()
+    }, [])
+    const handleGet = async () => {
+        try {
+            const response = await axios.get(process.env.REACT_APP_BASE_URL + `/part`);
+            console.log(response.data)
+            setVendorList(response.data)
+        } catch (e){
+            alert('get data failed')
+        }
     };
+
+
     const handleQuantityChange = (event: any) => {
         setQuantity(event.target.value);
     };
-    const handleUnitPriceChange = (event: any) => {
-        setUnitPrice(event.target.value);
-    };
+
     const handleSubmit = async () => {
-        if (!partId || !quantity || !unitPrice){
+        console.log(vendor, quantity);
+        if (!vendor || !quantity){
             alert("input field cannot be empty");
             return
         }
         try {
             const requestBody = {
-                "partId": partId,
+                "partId": vendor.part_id.toString(),
+                "partName": vendor.part_name,
+                "vendorId": vendor.vendor_id.toString(),
                 "quantity": quantity,
-                "unitPrice": unitPrice,
+                "unitPrice": vendor.unit_price,
                 "value": value
             };
             const res = await axios.post(process.env.REACT_APP_BASE_URL + `/purchase-order`,
@@ -61,22 +85,41 @@ const AddPurchaseOrder = () => {
             <Box
                 component="form"
                 sx={{
-                    '& .MuiTextField-root': { m: 1, width: '25ch' },
+                    '& .MuiTextField-root': { m: 1, width: '40ch' },
                 }}
                 noValidate
                 autoComplete="off"
             >
-                <div>
-                    <TextField id="standard-basic" label="Part Id" variant="standard" style = {{width: 400}}
-                               onChange={handlePartIdChange}/>
-                </div>
+
+                <Autocomplete
+                    id="country-select-demo"
+                    value={vendor}
+                    onChange={(event: any, vendor: Vendor | null) => {
+                        setVendor(vendor);
+                    }}
+                    options={vendorList}
+                    autoHighlight
+                    getOptionLabel={(option) => option.part_name}
+                    renderOption={(props, option) => (
+                        <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
+                            {option.part_id}. {option.part_name} ({option.company_name}, unit price: {option.unit_price})
+                        </Box>
+                    )}
+                    renderInput={(params) => (
+                        <TextField
+                            {...params}
+                            variant="standard"
+                            label="Choose a part"
+                        />
+                    )}
+                />
+                <Box m={2}>
+                    <p>unit price: {vendor ? vendor.unit_price : 0}</p>
+                </Box>
+
                 <div>
                     <TextField id="standard-basic" label="Quantity" variant="standard" style = {{width: 400}}
                                onChange={handleQuantityChange}/>
-                </div>
-                <div>
-                    <TextField id="standard-basic" label="Unit Price" style = {{width: 400}} variant="standard"
-                               onChange={handleUnitPriceChange}/>
                 </div>
 
                 <Box m={2}>
@@ -84,7 +127,6 @@ const AddPurchaseOrder = () => {
                         {`value: ${value} `}
                     </Typography>
                 </Box>
-
                 <Box m={2}>
                     <Button variant="outlined" onClick={handleSubmit}>
                         Submit

@@ -20,6 +20,9 @@ import NewPurchaseOrder from "./components/PurchaseOrder/NewPurchaseOrder";
 import Settlement from "./components/Settlement/Settlement";
 import BalanceSheet from "./components/BalanceSheet/BalanceSheet";
 import IncomeStatement from "./components/IncomeStatement/IncomeStatement";
+import Inventory from "./components/Inventory/Inventory";
+import Part from "./components/Part/Part";
+import AddPart from "./components/Part/AddPart";
 
 function App() {
     return (
@@ -37,6 +40,11 @@ function App() {
 
                     <Route path="/vendor/add" component={AddVendor}/>
                     <Route path="/vendor" component={Vendor}/>
+
+                    <Route path="/inventory" component={Inventory}/>
+
+                    <Route path="/part/add" component={AddPart}/>
+                    <Route path="/part" component={Part}/>
 
                     <Route path="/invoice/add" component={AddInvoice}/>
                     <Route path="/invoice" component={Invoice}/>

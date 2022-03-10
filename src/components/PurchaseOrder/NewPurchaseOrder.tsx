@@ -5,6 +5,13 @@ import {Button, Typography} from "@mui/material";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import {useHistory} from "react-router-dom";
+type Vendor = {
+    address: string
+    created_at: string
+    employee_id: number
+    name: string
+    salary: string
+}
 const NewPurchaseOrder = () => {
     const history = useHistory();
 

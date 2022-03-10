@@ -15,8 +15,7 @@ const useStyles = makeStyles({
     box: {
         margin: 20,
         verticalAlign: "middle",
-        height: 300,
-        overflowY: "scroll"
+        height: 300
     }
 });
 
@@ -53,7 +52,7 @@ const Customer = () => {
                             <TableRow>
                                 <TableCell>id</TableCell>
                                 <TableCell align="right">Company Name</TableCell>
-                                <TableCell align="right">Name</TableCell>
+                                <TableCell align="right">Manager Name</TableCell>
                                 <TableCell align="right">Address</TableCell>
                                 <TableCell align="right">Created At</TableCell>
                             </TableRow>

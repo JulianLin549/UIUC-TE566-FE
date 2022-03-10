@@ -17,7 +17,6 @@ const useStyles = makeStyles(() => ({
         flexGrow: 1,
     },
     routerLink: {
-        fontSize: "0.5rem",
         color: "white",
         "&:hover": {
             color: "white"
@@ -47,7 +46,7 @@ export default function NavBar() {
             <Toolbar className={classes.navbar}>
                 <Box m={2}>
                     <Typography variant="h6" component="div">
-                       BJ47pupu Coop.
+                       Julian's Hardware Store
                     </Typography>
                 </Box>
                 <Button color="inherit"
@@ -64,6 +63,16 @@ export default function NavBar() {
                         component={RouterLink} className={classes.routerLink}
                         to={'/vendor'}>
                     vendor
+                </Button>
+                <Button color="inherit"
+                        component={RouterLink} className={classes.routerLink}
+                        to={'/part'}>
+                    part
+                </Button>
+                <Button color="inherit"
+                        component={RouterLink} className={classes.routerLink}
+                        to={'/inventory'}>
+                    inventory
                 </Button>
                 <Button color="inherit"
                         component={RouterLink} className={classes.routerLink}

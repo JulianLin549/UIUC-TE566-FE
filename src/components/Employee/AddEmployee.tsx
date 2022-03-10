@@ -30,7 +30,7 @@ const AddEmployee = () => {
             const requestBody = {
                 "salary": salary,
                 "name": name,
-                "address": name
+                "address": address
             };
             await axios.post(process.env.REACT_APP_BASE_URL + `/employee`,
                 requestBody);

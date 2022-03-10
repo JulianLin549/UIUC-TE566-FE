@@ -15,8 +15,7 @@ const useStyles = makeStyles({
     box: {
         margin: 20,
         verticalAlign: "middle",
-        height: 300,
-        overflowY: "scroll"
+        height: 300
     }
 });
 
@@ -55,10 +54,12 @@ const Payroll = () => {
                             <TableRow>
                                 <TableCell>id</TableCell>
                                 <TableCell align="right">Employee Id</TableCell>
+                                <TableCell align="right">Name</TableCell>
                                 <TableCell align="right">Amount</TableCell>
                                 <TableCell align="right">Created At</TableCell>
                             </TableRow>
                         </TableHead>
+
                         <TableBody>
                             {payrollList && payrollList.map((obj) => (
                                 <TableRow
@@ -67,6 +68,7 @@ const Payroll = () => {
                                 >
                                     <TableCell component="th" scope="row">{obj.payroll_id}</TableCell>
                                     <TableCell align="right">{obj.employee_id}</TableCell>
+                                    <TableCell align="right">{obj.name}</TableCell>
                                     <TableCell align="right">{obj.amount}</TableCell>
                                     <TableCell align="right">{obj.created_at}</TableCell>
                                 </TableRow>

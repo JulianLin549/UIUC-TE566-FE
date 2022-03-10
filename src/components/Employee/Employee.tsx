@@ -16,7 +16,6 @@ const useStyles = makeStyles({
         margin: 20,
         verticalAlign: "middle",
         height: 300,
-        overflowY: "scroll"
     }
 });
 
@@ -46,11 +45,6 @@ const Employee = () => {
                     Add Employee
                 </Button>
 
-            </Box>
-            <Box m={2}>
-                <Button variant="outlined" onClick={()=>history.push('/employee/pay')}>
-                    Pay Employee
-                </Button>
             </Box>
 
             <Box m={2} className={classes.box}>

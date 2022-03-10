@@ -8,32 +8,22 @@ const AddVendor = () => {
     const history = useHistory();
 
     const [companyName, setCompanyName] = useState('');
-    const [part, setPart] = useState('');
-    const [unitPrice, setUnitPrice] = useState('');
     const [address, setAddress] = useState('');
 
     const handleCompanyNameChange = (event: any) => {
         setCompanyName(event.target.value);
     };
-    const handlePartChange = (event: any) => {
-        setPart(event.target.value);
-    };
-    const handleUnitPriceChange = (event: any) => {
-        setUnitPrice(event.target.value);
-    };
     const handleAddressChange = (event: any) => {
         setAddress(event.target.value);
     };
     const handleSubmit = async () => {
-        if (!companyName || !part || !unitPrice || !address){
+        if (!companyName || !address){
             alert("input field cannot be empty");
             return
         }
         try {
             const requestBody = {
                 "companyName": companyName,
-                "part": part,
-                "unitPrice": unitPrice,
                 "address": address
             };
             await axios.post(process.env.REACT_APP_BASE_URL + `/vendor`,
@@ -62,17 +52,10 @@ const AddVendor = () => {
                     <TextField id="standard-basic" label="Company Name" style = {{width: 400}} variant="standard"
                                onChange={handleCompanyNameChange}/>
                 </div>
-                <div>
-                    <TextField id="standard-basic" label="Part" variant="standard" style = {{width: 400}}
-                               onChange={handlePartChange}/>
-                </div>
+
                 <div>
                     <TextField id="standard-basic" label="Address" variant="standard" style = {{width: 400}}
                                onChange={handleAddressChange}/>
-                </div>
-                <div>
-                    <TextField id="standard-basic" label="Unit Price" variant="standard" style = {{width: 400}}
-                               onChange={handleUnitPriceChange}/>
                 </div>
                 <Box m={2}>
                     <Button variant="outlined" onClick={handleSubmit}>

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button} from "@mui/material";
+import {Button, Typography} from "@mui/material";
 import Box from "@mui/material/Box";
 import axios from "axios";
 import {useHistory} from "react-router-dom";
@@ -18,9 +18,15 @@ const Settlement = () => {
     };
     return (
         <Box m={2}>
-            <Button variant="outlined" onClick={handleSettle}>
-                Settlement
-            </Button>
+            <Typography variant="h5" gutterBottom component="div">
+                Settle Invoice and Purchase Order After 30 days
+            </Typography>
+            <Box m={5}>
+                <Button variant="outlined" onClick={handleSettle}>
+                    Settlement
+                </Button>
+            </Box>
+
         </Box>
     );
 };

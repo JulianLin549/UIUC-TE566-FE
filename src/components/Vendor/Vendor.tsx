@@ -15,8 +15,7 @@ const useStyles = makeStyles({
     box: {
         margin: 20,
         verticalAlign: "middle",
-        height: 300,
-        overflowY: "scroll"
+        height: 300
     }
 });
 
@@ -53,23 +52,19 @@ const Vendor = () => {
                             <TableRow>
                                 <TableCell>id</TableCell>
                                 <TableCell align="right">Company Name</TableCell>
-                                <TableCell align="right">Part</TableCell>
                                 <TableCell align="right">Address</TableCell>
-                                <TableCell align="right">Unit Price</TableCell>
                                 <TableCell align="right">Created At</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {vendorList && vendorList.map((obj) => (
+                            {vendorList && vendorList.filter(obj => obj.vendor_id !== 0).map((obj) => (
                                 <TableRow
                                     key={obj.vendor_id}
                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                 >
                                     <TableCell component="th" scope="row">{obj.vendor_id}</TableCell>
                                     <TableCell align="right">{obj.company_name}</TableCell>
-                                    <TableCell align="right">{obj.part}</TableCell>
                                     <TableCell align="right">{obj.address}</TableCell>
-                                    <TableCell align="right">{obj.unit_price}</TableCell>
                                     <TableCell align="right">{obj.created_at}</TableCell>
                                 </TableRow>
                             ))}

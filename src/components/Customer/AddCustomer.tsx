@@ -59,7 +59,7 @@ const AddCustomer = () => {
                                onChange={handleCompanyNameChange}/>
                 </div>
                 <div>
-                    <TextField id="standard-basic" label="Name" variant="standard" style = {{width: 400}}
+                    <TextField id="standard-basic" label="Manager Name" variant="standard" style = {{width: 400}}
                                onChange={handleNameChange}/>
                 </div>
                 <div>

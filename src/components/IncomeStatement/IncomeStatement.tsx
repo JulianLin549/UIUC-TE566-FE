@@ -25,6 +25,17 @@ const IncomeStatement = () => {
             alert('get data failed')
         }
     };
+    let sales = parseFloat(is.sales);
+    let cogs = parseFloat(is.cogs);
+    let grossProfit = sales - cogs;
+    let payroll = parseFloat(is.payroll);
+    let bills = parseFloat(is.bills);
+    let incomeBeforeTax = (sales-cogs-payroll-bills);
+    let incomeTax = 0
+    if (incomeBeforeTax > 0){
+        incomeTax = incomeBeforeTax * 0.2
+    }
+    let netIncome = incomeBeforeTax - incomeTax;
     return (
         <Container>
             <h1>Income Statement</h1>
@@ -40,10 +51,10 @@ const IncomeStatement = () => {
                         <Typography variant="body1">Gross Profit</Typography>
                     </Grid>
                     <Grid item xs={6}>
-                        <Typography variant="body2">{parseFloat(is.sales)}</Typography>
-                        <Typography variant="body2">{parseFloat(is.cogs)}</Typography>
+                        <Typography variant="body2">{sales}</Typography>
+                        <Typography variant="body2">{cogs}</Typography>
                         <hr/>
-                        <Typography variant="body1">{parseFloat(is.sales)-parseFloat(is.cogs)}</Typography>
+                        <Typography variant="body1">{grossProfit}</Typography>
                     </Grid>
                 </Grid>
             </Box>
@@ -60,11 +71,11 @@ const IncomeStatement = () => {
                         <Typography variant="body1">Total Expense</Typography>
                     </Grid>
                     <Grid item xs={6}>
-                        <Typography variant="body2">{parseFloat(is.payroll)}</Typography>
-                        <Typography variant="body2">{parseFloat(is.bills)}</Typography>
+                        <Typography variant="body2">{payroll}</Typography>
+                        <Typography variant="body2">{bills}</Typography>
                         <Typography variant="body2">0</Typography>
                         <hr/>
-                        <Typography variant="body1">{parseFloat(is.payroll)+parseFloat(is.bills)}</Typography>
+                        <Typography variant="body1">{payroll+bills}</Typography>
                     </Grid>
                 </Grid>
             </Box>
@@ -78,13 +89,9 @@ const IncomeStatement = () => {
                     </Grid>
                     <Grid item xs={6}>
                         <Typography variant="body2">0</Typography>
-                        <Typography variant="body2">
-                            {(parseFloat(is.sales)-parseFloat(is.cogs)-parseFloat(is.payroll)-parseFloat(is.bills))*0.2}
-                        </Typography>
+                        <Typography variant="body2">{incomeBeforeTax}</Typography>
                         <hr/>
-                        <Typography variant="body1">
-                            {(parseFloat(is.sales)-parseFloat(is.cogs)-parseFloat(is.payroll)-parseFloat(is.bills))*0.8}
-                        </Typography>
+                        <Typography variant="body1">{netIncome}</Typography>
                     </Grid>
                 </Grid>
             </Box>

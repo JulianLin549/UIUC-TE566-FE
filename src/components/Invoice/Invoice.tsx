@@ -15,8 +15,7 @@ const useStyles = makeStyles({
     box: {
         margin: 20,
         verticalAlign: "middle",
-        height: 300,
-        overflowY: "scroll"
+        height: 300
     }
 });
 
@@ -56,7 +55,10 @@ const Invoice = () => {
                             <TableRow>
                                 <TableCell>id</TableCell>
                                 <TableCell align="right">Customer Id</TableCell>
+                                <TableCell align="right">Customer Company Name</TableCell>
+                                <TableCell align="right">Customer Address</TableCell>
                                 <TableCell align="right">Quantity</TableCell>
+                                <TableCell align="right">Unit Price</TableCell>
                                 <TableCell align="right">Value</TableCell>
                                 <TableCell align="right">Settlement</TableCell>
                                 <TableCell align="right">Created At</TableCell>
@@ -70,7 +72,10 @@ const Invoice = () => {
                                 >
                                     <TableCell component="th" scope="row">{obj.invoice_id}</TableCell>
                                     <TableCell align="right">{obj.customer_id}</TableCell>
+                                    <TableCell align="right">{obj.company_name}</TableCell>
+                                    <TableCell align="right">{obj.address}</TableCell>
                                     <TableCell align="right">{obj.quantity}</TableCell>
+                                    <TableCell align="right">{obj.unit_price}</TableCell>
                                     <TableCell align="right">{obj.value}</TableCell>
                                     <TableCell align="right">{obj.settlement ? "Yes": "No"}</TableCell>
                                     <TableCell align="right">{obj.created_at}</TableCell>
